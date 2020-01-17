@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkManager", "NetworkManager\NetworkManager.csproj", "{05006F24-C35F-4607-BE04-050771F0BF41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkManager.Core", "NetworkManager.Core\NetworkManager.Core.csproj", "{818479CF-D413-4EA1-802B-FF5FBA41BA08}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,26 +45,6 @@ Global
 		{05006F24-C35F-4607-BE04-050771F0BF41}.Release|x86.ActiveCfg = Release|x86
 		{05006F24-C35F-4607-BE04-050771F0BF41}.Release|x86.Build.0 = Release|x86
 		{05006F24-C35F-4607-BE04-050771F0BF41}.Release|x86.Deploy.0 = Release|x86
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|ARM.Build.0 = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|x64.Build.0 = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Debug|x86.Build.0 = Debug|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|ARM.ActiveCfg = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|ARM.Build.0 = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|ARM64.Build.0 = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|x64.ActiveCfg = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|x64.Build.0 = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|x86.ActiveCfg = Release|Any CPU
-		{818479CF-D413-4EA1-802B-FF5FBA41BA08}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
