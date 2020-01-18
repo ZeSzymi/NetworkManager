@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Text;
-using NetworkManager.Models;
+using System.Threading.Tasks;
 using NetworkManager.Services;
 using Windows.Devices.WiFi;
 
@@ -17,14 +17,11 @@ namespace NetworkManager.Core.Services
             _deviceService = deviceService;
         }
 
-        public IObservable<WiFiNetworkReport> Scan()
+        public async Task<WiFiNetworkReport> Scan()
         {
-            return Observable.Create<WiFiNetworkReport>(async o =>
-            {
-                var adapter = await _deviceService.GetWiFiAdapter();
-                await adapter.ScanAsync();
-                o.OnNext(adapter.NetworkReport);
-            });
+            var adapter = await _deviceService.GetWiFiAdapter();
+            await adapter.ScanAsync();
+            return adapter.NetworkReport;
         }
     }
 }

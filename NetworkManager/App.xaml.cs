@@ -3,7 +3,8 @@ using System.Globalization;
 using System.Threading.Tasks;
 
 using Microsoft.Practices.Unity;
-
+using NetworkManager.Services;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity.Windows;
 using Prism.Windows.AppModel;
@@ -11,6 +12,7 @@ using Prism.Windows.AppModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
+using NetworkManager.Core.Services;
 
 namespace NetworkManager
 {
@@ -23,6 +25,8 @@ namespace NetworkManager
         {
             base.ConfigureContainer();
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+            Container.RegisterType<IDeviceService, DeviceService>();
+            Container.RegisterType<INetworkService, NetworkService>();
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args) => await LaunchApplicationAsync(PageTokens.MainPage, null);
