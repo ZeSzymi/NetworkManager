@@ -8,19 +8,18 @@
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <TextBlock
-            Grid.Row="0"
-            x:Uid="Main_Title"
-            Style="{StaticResource PageTitleStyle}" />
-        <Grid
-            Grid.Row="1" 
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-        </Grid>
+        <TextBlock FontSize="36" Grid.RowSpan="2" >WiFi Scanner</TextBlock>
+        <StackPanel Name="spButtons" Grid.Row="1" Orientation="Horizontal">
+            <Button Name="btnScan" Click="btnScan_Click" Grid.Row="1">Scan For
+      Networks</Button>
+        </StackPanel>
+        <TextBox Name="txbReport" TextWrapping="Wrap" AcceptsReturn="True"
+    Grid.Row="2"></TextBox>
     </Grid>
 </Page>

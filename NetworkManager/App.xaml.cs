@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 
 using Microsoft.Practices.Unity;
+using NetworkManager.Core.Services;
 using NetworkManager.Services;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -12,7 +13,6 @@ using Prism.Windows.AppModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
-using NetworkManager.Core.Services;
 
 namespace NetworkManager
 {

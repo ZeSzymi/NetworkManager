@@ -9,7 +9,7 @@
 
   <Identity
     Name="6524DAF9-A6D7-41B1-AFD4-9725E2E1F095"
-    Publisher="CN=teodo"
+    Publisher="CN=szymi"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="6524DAF9-A6D7-41B1-AFD4-9725E2E1F095" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

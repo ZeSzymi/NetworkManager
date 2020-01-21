@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Reactive.Linq;
+﻿using System.Collections.ObjectModel;
 using Windows.Devices.WiFi;
 using NetworkManager.Core.Services;
 using NetworkManager.Services;
 using Prism.Windows.Mvvm;
 using NetworkManager.Extensions;
+using System.Linq;
 
 namespace NetworkManager.ViewModels
 {
@@ -20,17 +19,15 @@ namespace NetworkManager.ViewModels
         {
             _networkService = networkService;
             _deviceService = deviceService;
-
-            Scan();
         }
 
         public async void Scan()
         {
             if (await _deviceService.HasWiFiAdapter())
             {
-                var scanResult = await _networkService.Scan();
-                AvailableNetworks.AddRange(scanResult.AvailableNetworks);
-                var test = "";
+                var adapter = await _deviceService.GetWiFiAdapter();
+                var report = await _networkService.Scan(adapter);
+                await _networkService.Connect(report.AvailableNetworks.First(), adapter);
             }
         }
     }
