@@ -4,23 +4,73 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
-    prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
+    xmlns:converters="using:NetworkManager.Converters"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Page.Resources>
+        <converters:NetworkToOrbitItemConverter x:Key="NetworkToOrbitItemConverter"/>
+    </Page.Resources>
 
-        <TextBlock
-            Grid.Row="0"
-            x:Uid="Main_Title"
-            Style="{StaticResource PageTitleStyle}" />
-        <Grid
-            Grid.Row="1" 
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    <SplitView IsPaneOpen="True"
+               DisplayMode="Overlay"
+               PanePlacement="Right"
+               OpenPaneLength="296">
+        <SplitView.Pane>
+            <TextBlock Text="Pane"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+        </SplitView.Pane>
+
+        <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                x:Uid="Main_Title"
+                Style="{StaticResource PageTitleStyle}" />
+            <Grid
+                Grid.Row="1"
+                Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                <controls:OrbitView x:Name="Networks"
+                                    AnchorColor="Gray"
+                                    AnchorsEnabled="False"
+                                    IsItemClickEnabled="True"
+                                    MinItemSize="60"
+                                    MaxItemSize="60"
+                                    OrbitColor="Gray"
+                                    OrbitsEnabled="True"
+                                    HorizontalAlignment="Right"
+                                    ItemsSource="{Binding AvailableNetworks, Mode=TwoWay, Converter={StaticResource NetworkToOrbitItemConverter} }">
+                    <controls:OrbitView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Background="White">
+                                <StackPanel>
+                                    <SymbolIcon Height="30"
+                                                HorizontalAlignment="Center"
+                                                Foreground="Gray"
+                                                Symbol="{Binding Symbol}" />
+                                    <TextBlock FontSize="10"
+                                               Foreground="Gray"
+                                               Text="{Binding Label}"
+                                               TextAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+
+                        </DataTemplate>
+                    </controls:OrbitView.ItemTemplate>
+                    <controls:OrbitView.CenterContent>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE703;" FontSize="60" />
+                    </controls:OrbitView.CenterContent>
+                </controls:OrbitView>
+            </Grid>
         </Grid>
-    </Grid>
+    </SplitView>
 </Page>

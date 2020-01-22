@@ -9,7 +9,7 @@ namespace NetworkManager.Extensions
     {
         public static void AddRange<T>(this ObservableCollection<T> observableCollection, IEnumerable<T> rangeList)
         {
-            foreach (T item in rangeList)
+            foreach (var item in rangeList)
             {
                 observableCollection.Add(item);
             }

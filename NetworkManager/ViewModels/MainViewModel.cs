@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using Windows.Devices.WiFi;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using NetworkManager.Core.Services;
 using NetworkManager.Services;
 using Prism.Windows.Mvvm;
@@ -14,7 +15,7 @@ namespace NetworkManager.ViewModels
         private readonly INetworkService _networkService;
         private readonly IDeviceService _deviceService;
 
-        public ObservableCollection<WiFiAvailableNetwork> AvailableNetworks = new ObservableCollection<WiFiAvailableNetwork>();
+        public ObservableCollection<WiFiAvailableNetwork> AvailableNetworks { get; set; } = new ObservableCollection<WiFiAvailableNetwork>();
 
         public MainViewModel(INetworkService networkService, IDeviceService deviceService)
         {
@@ -30,7 +31,6 @@ namespace NetworkManager.ViewModels
             {
                 var scanResult = await _networkService.Scan();
                 AvailableNetworks.AddRange(scanResult.AvailableNetworks);
-                var test = "";
             }
         }
     }
