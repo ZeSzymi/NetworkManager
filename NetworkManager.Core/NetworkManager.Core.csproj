@@ -120,11 +120,15 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants\PageTokens.cs" />
+    <Compile Include="Constants\SpeedTestAddresses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DeviceService.cs" />
     <Compile Include="Services\IDeviceService.cs" />
     <Compile Include="Services\INetworkService.cs" />
+    <Compile Include="Services\ISpeedTestService.cs" />
     <Compile Include="Services\NetworkService.cs" />
+    <Compile Include="Services\SpeedTestService.cs" />
     <EmbeddedResource Include="Properties\NetworkManager.Core.rd.xml" />
   </ItemGroup>
   <ItemGroup>
