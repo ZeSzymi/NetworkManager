@@ -19,7 +19,12 @@ namespace NetworkManager.Views
 
         private async void btnScan_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Scan();
+            var list = await ViewModel.Scan();
+            ContentDialog dialog = new ContentDialog
+            {
+                Title = list[0]
+            };
+            await dialog.ShowAsync();  
         }
     }
 }

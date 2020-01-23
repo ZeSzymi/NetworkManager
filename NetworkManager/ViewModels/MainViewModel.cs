@@ -26,7 +26,7 @@ namespace NetworkManager.ViewModels
             _speedTestService = speedTestService;
         }
 
-        public async Task<List<string>> Scan()
+        public async Task<string> Scan()
         {
             if (await _deviceService.HasWiFiAdapter())
             {
@@ -35,9 +35,9 @@ namespace NetworkManager.ViewModels
                 await _networkService.Connect(report.AvailableNetworks.First(), adapter);
                 var results = _speedTestService.GetTimeResultTasks(SpeedTestConsts.Addresses);
                 await Task.WhenAll(results);
-                return results.Select(result => result.Result.Item2.ToString()).ToList();
+                return _speedTestService.GetAverageTimeSpan(results.Select(r => r.Result.Item2).ToList());
             }
-            return new List<string>();
+            return string.Empty;
         }
     }
 }
