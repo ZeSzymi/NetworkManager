@@ -21,7 +21,8 @@ namespace NetworkManager.Converters
                 {
                     Diameter = 1,
                     Distance = ConvertSignalBarsToOrbitDistance(network.SignalBars),
-                    Label = network.Ssid
+                    Label = network.Ssid,
+                    Item = network
                 });
             });
 
@@ -45,9 +46,9 @@ namespace NetworkManager.Converters
         private double ConvertSignalBarsToOrbitDistance(byte signalBars) =>
             signalBars switch
             {
-                3 => 0.20,
-                2 => 0.50,
-                1 => 0.80,
+                4 => 0.20,
+                3 => 0.40,
+                2 => 0.60,
                 _ => 0.80
             };
     }

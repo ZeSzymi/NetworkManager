@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     xmlns:converters="using:NetworkManager.Converters"
@@ -14,14 +16,14 @@
         <converters:NetworkToOrbitItemConverter x:Key="NetworkToOrbitItemConverter"/>
     </Page.Resources>
 
-    <SplitView IsPaneOpen="True"
+    <SplitView IsPaneOpen="{Binding IsDetailsPanelOpened, Mode=TwoWay}"
                DisplayMode="Overlay"
                PanePlacement="Right"
                OpenPaneLength="296">
         <SplitView.Pane>
-            <TextBlock Text="Pane"
+            <TextBlock Text="{Binding Ssid, Mode=TwoWay}"
                        FontSize="24"
-                       VerticalAlignment="Center"
+                       VerticalAlignment="Top"
                        HorizontalAlignment="Center" />
         </SplitView.Pane>
 
@@ -47,7 +49,12 @@
                                     OrbitColor="Gray"
                                     OrbitsEnabled="True"
                                     HorizontalAlignment="Right"
-                                    ItemsSource="{Binding AvailableNetworks, Mode=TwoWay, Converter={StaticResource NetworkToOrbitItemConverter} }">
+                                    ItemsSource="{Binding AvailableNetworks, Mode=TwoWay, Converter={StaticResource NetworkToOrbitItemConverter}, UpdateSourceTrigger=PropertyChanged }">
+                    <i:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="ItemClick">
+                            <core:InvokeCommandAction Command="{Binding SelectionCommand}"></core:InvokeCommandAction>
+                        </core:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
                     <controls:OrbitView.ItemTemplate>
                         <DataTemplate>
                             <Grid

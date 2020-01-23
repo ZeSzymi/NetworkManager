@@ -144,7 +144,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NetworkToOrbitItemConverter.cs" />
-    <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Services\DeviceService.cs" />
