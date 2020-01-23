@@ -9,6 +9,6 @@ namespace NetworkManager.Core.Services
     {
         Task<Tuple<HttpResponseMessage, TimeSpan>>[] GetTimeResultTasks(List<string> urls);
         Task<Tuple<HttpResponseMessage, TimeSpan>> GetTimeResultAsync(string url);
-        string GetAverageTimeSpan(List<TimeSpan> times);
+        double GetAverageTimeSpan(List<TimeSpan> times);
     }
 }

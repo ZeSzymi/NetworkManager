@@ -35,7 +35,7 @@ namespace NetworkManager.ViewModels
                 await _networkService.Connect(report.AvailableNetworks.First(), adapter);
                 var results = _speedTestService.GetTimeResultTasks(SpeedTestConsts.Addresses);
                 await Task.WhenAll(results);
-                return _speedTestService.GetAverageTimeSpan(results.Select(r => r.Result.Item2).ToList());
+                return _speedTestService.GetAverageTimeSpan(results.Select(r => r.Result.Item2).ToList()).ToString();
             }
             return string.Empty;
         }

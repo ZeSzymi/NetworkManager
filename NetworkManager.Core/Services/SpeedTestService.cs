@@ -11,7 +11,7 @@ namespace NetworkManager.Core.Services
 {
     public class SpeedTestService : ISpeedTestService
     {
-        public string GetAverageTimeSpan(List<TimeSpan> times) => times.Select(t => t.TotalMilliseconds).Average().ToString();
+        public double GetAverageTimeSpan(List<TimeSpan> times) => times.Select(t => t.TotalMilliseconds).Average();
         public Task<Tuple<HttpResponseMessage, TimeSpan>>[] GetTimeResultTasks(List<string> urls) => urls.Select(url => GetTimeResultAsync(url)).ToArray();
 
         public async Task<Tuple<HttpResponseMessage, TimeSpan>> GetTimeResultAsync(string url)
