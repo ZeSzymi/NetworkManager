@@ -32,6 +32,7 @@ namespace NetworkManager.ViewModels
             {
                 SetProperty(ref _selectedNetwork, value);
                 Ssid = _selectedNetwork.Ssid;
+                AuthenticationMethod = _selectedNetwork.SecuritySettings.NetworkAuthenticationType.ToString();
             }
         }
 
@@ -41,6 +42,14 @@ namespace NetworkManager.ViewModels
         {
             get => _ssid;
             set => SetProperty(ref _ssid, value);
+        }
+
+        private string _authenticationMethod;
+
+        public string AuthenticationMethod
+        {
+            get => _authenticationMethod;
+            set => SetProperty(ref _authenticationMethod, value);
         }
 
         private ObservableCollection<WiFiAvailableNetwork> _availableNetworks
@@ -70,6 +79,7 @@ namespace NetworkManager.ViewModels
             var scanResult = await _networkService.Scan();
 
             // We have to create new instance to invoke databinding
+            // This can be replaced by a model class with implemented INotifyProperty interface 
             AvailableNetworks = new ObservableCollection<WiFiAvailableNetwork>(scanResult.AvailableNetworks);
         }
 

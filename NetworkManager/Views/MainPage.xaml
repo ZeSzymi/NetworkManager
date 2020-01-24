@@ -21,10 +21,27 @@
                PanePlacement="Right"
                OpenPaneLength="296">
         <SplitView.Pane>
-            <TextBlock Text="{Binding Ssid, Mode=TwoWay}"
-                       FontSize="24"
+            <Grid Margin="20,20,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48" />
+                    <RowDefinition Height="48" />
+                    <RowDefinition Height="48" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding Ssid, Mode=TwoWay}"
+                       FontSize="28"
+                       Grid.Row="0"
+                       TextTrimming="CharacterEllipsis"
+                       HorizontalAlignment="Left" />
+
+                <TextBlock Text="{Binding AuthenticationMethod, Mode=TwoWay}"
+                       FontSize="22"
+                       Grid.Row="1"
                        VerticalAlignment="Top"
-                       HorizontalAlignment="Center" />
+                       TextTrimming="CharacterEllipsis"
+                       HorizontalAlignment="Left" />
+            </Grid>
         </SplitView.Pane>
 
         <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
