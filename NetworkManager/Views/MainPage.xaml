@@ -13,7 +13,9 @@
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:NetworkToOrbitItemConverter x:Key="NetworkToOrbitItemConverter"/>
+        <converters:NetworkToOrbitItemConverter x:Key="NetworkToOrbitItemConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:VisibilityConverter x:Key="VisibilityConverter" />
     </Page.Resources>
 
     <SplitView IsPaneOpen="{Binding IsDetailsPanelOpened, Mode=TwoWay}"
@@ -30,32 +32,41 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="{Binding Ssid, Mode=TwoWay}"
-                       FontSize="28"
-                       Grid.Row="0"
-                       TextTrimming="CharacterEllipsis"
-                       HorizontalAlignment="Left" />
+                           FontSize="28"
+                           Grid.Row="0"
+                           TextTrimming="CharacterEllipsis"
+                           HorizontalAlignment="Left" />
 
-                <StackPanel x:Name="ConnectLayout" Grid.Row="2">
+                <StackPanel x:Name="ConnectLayout" Grid.Row="2"
+                            Visibility="{Binding IsConnected, Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="36" />
                             <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
 
-                        <PasswordBox Grid.Row="0" Width="200" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Type password..."  Visibility="{Binding IsSecured, Mode=TwoWay}" />
-                        <Button Grid.Row="1" Width="200" Content="Connect" HorizontalAlignment="Center" Command="{Binding ConnectCommand, Mode=TwoWay}" />
+                        <PasswordBox Grid.Row="0" Width="200" Password="{Binding Password, Mode=TwoWay}"
+                                     PlaceholderText="Type password..."
+                                     Visibility="{Binding IsSecured, Mode=TwoWay, Converter={StaticResource VisibilityConverter}}" />
+                        <Button Grid.Row="1" Width="200" Content="Connect" HorizontalAlignment="Center"
+                                Command="{Binding ConnectCommand, Mode=TwoWay}" />
                     </Grid>
                 </StackPanel>
-                <StackPanel x:Name="DisconnectLayout" Grid.Row="2" Visibility="{Binding}">
+                <StackPanel x:Name="DisconnectLayout" Grid.Row="2" Visibility="{Binding IsConnected, Mode=TwoWay}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="36" />
                             <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
 
-                        <Button Grid.Row="1" Width="200" Content="Disconnect" HorizontalAlignment="Center" Command="{Binding DisconnectCommand, Mode=TwoWay}" />
+                        <Button Grid.Row="1" Width="200" Content="Disconnect" HorizontalAlignment="Center"
+                                Command="{Binding DisconnnectCommand, Mode=TwoWay}" />
                     </Grid>
                 </StackPanel>
+
+                <ProgressRing Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20"
+                              IsActive="{Binding IsProcessing, Mode=TwoWay}"
+                              Visibility="{Binding IsProcessing, Mode=TwoWay, Converter={StaticResource VisibilityConverter}}" />
             </Grid>
         </SplitView.Pane>
 
@@ -84,7 +95,7 @@
                                     ItemsSource="{Binding AvailableNetworks, Mode=TwoWay, Converter={StaticResource NetworkToOrbitItemConverter}, UpdateSourceTrigger=PropertyChanged }">
                     <i:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
-                            <core:InvokeCommandAction Command="{Binding SelectionCommand}"></core:InvokeCommandAction>
+                            <core:InvokeCommandAction Command="{Binding SelectionCommand}" />
                         </core:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <controls:OrbitView.ItemTemplate>
@@ -93,16 +104,15 @@
                                 Background="White">
                                 <StackPanel>
                                     <FontIcon Height="30"
-                                                HorizontalAlignment="Center"
-                                                Foreground="Gray"
-                                                Glyph="&#xE701;" />
+                                              HorizontalAlignment="Center"
+                                              Foreground="Gray"
+                                              Glyph="&#xE701;" />
                                     <TextBlock FontSize="10"
                                                Foreground="Gray"
                                                Text="{Binding Label}"
                                                TextAlignment="Center" />
                                 </StackPanel>
                             </Grid>
-
                         </DataTemplate>
                     </controls:OrbitView.ItemTemplate>
                     <controls:OrbitView.CenterContent>
@@ -110,6 +120,8 @@
                     </controls:OrbitView.CenterContent>
                 </controls:OrbitView>
             </Grid>
+            <Button Grid.Row="1" Width="200" Content="Refresh" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                    Command="{Binding RefreshCommand, Mode=TwoWay}" />
         </Grid>
     </SplitView>
 </Page>
