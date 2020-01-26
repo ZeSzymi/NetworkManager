@@ -7,6 +7,7 @@ using NetworkManager.Core.Services;
 using NetworkManager.Services;
 using Prism.Windows.Mvvm;
 using Prism.Commands;
+using NetworkManager.Extensions;
 
 namespace NetworkManager.ViewModels
 {
@@ -32,7 +33,7 @@ namespace NetworkManager.ViewModels
             {
                 SetProperty(ref _selectedNetwork, value);
                 Ssid = _selectedNetwork.Ssid;
-                AuthenticationMethod = _selectedNetwork.SecuritySettings.NetworkAuthenticationType.ToString();
+                IsSecured = _selectedNetwork.SecuritySettings.NetworkAuthenticationType.IsSecuredWithPassword();
             }
         }
 
@@ -44,12 +45,12 @@ namespace NetworkManager.ViewModels
             set => SetProperty(ref _ssid, value);
         }
 
-        private string _authenticationMethod;
+        private bool _isSecured;
 
-        public string AuthenticationMethod
+        public bool IsSecured
         {
-            get => _authenticationMethod;
-            set => SetProperty(ref _authenticationMethod, value);
+            get => _isSecured;
+            set => SetProperty(ref _isSecured, value);
         }
 
         private ObservableCollection<WiFiAvailableNetwork> _availableNetworks

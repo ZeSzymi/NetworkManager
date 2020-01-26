@@ -19,14 +19,14 @@
     <SplitView IsPaneOpen="{Binding IsDetailsPanelOpened, Mode=TwoWay}"
                DisplayMode="Overlay"
                PanePlacement="Right"
+               Background="LightGray"
                OpenPaneLength="296">
         <SplitView.Pane>
             <Grid Margin="20,20,20,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="48" />
-                    <RowDefinition Height="48" />
-                    <RowDefinition Height="48" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="128" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="{Binding Ssid, Mode=TwoWay}"
@@ -35,16 +35,31 @@
                        TextTrimming="CharacterEllipsis"
                        HorizontalAlignment="Left" />
 
-                <TextBlock Text="{Binding AuthenticationMethod, Mode=TwoWay}"
-                       FontSize="22"
-                       Grid.Row="1"
-                       VerticalAlignment="Top"
-                       TextTrimming="CharacterEllipsis"
-                       HorizontalAlignment="Left" />
+                <StackPanel x:Name="ConnectLayout" Grid.Row="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="36" />
+                            <RowDefinition Height="48" />
+                        </Grid.RowDefinitions>
+
+                        <PasswordBox Grid.Row="0" Width="200" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Type password..."  Visibility="{Binding IsSecured, Mode=TwoWay}" />
+                        <Button Grid.Row="1" Width="200" Content="Connect" HorizontalAlignment="Center" Command="{Binding ConnectCommand, Mode=TwoWay}" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel x:Name="DisconnectLayout" Grid.Row="2" Visibility="{Binding}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="36" />
+                            <RowDefinition Height="48" />
+                        </Grid.RowDefinitions>
+
+                        <Button Grid.Row="1" Width="200" Content="Disconnect" HorizontalAlignment="Center" Command="{Binding DisconnectCommand, Mode=TwoWay}" />
+                    </Grid>
+                </StackPanel>
             </Grid>
         </SplitView.Pane>
 
-        <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid x:Name="ContentArea">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48" />
                 <RowDefinition Height="*" />
@@ -52,7 +67,7 @@
 
             <TextBlock
                 Grid.Row="0"
-                x:Uid="Main_Title"
+                Text="Network Manager"
                 Style="{StaticResource PageTitleStyle}" />
             <Grid
                 Grid.Row="1"
@@ -77,10 +92,10 @@
                             <Grid
                                 Background="White">
                                 <StackPanel>
-                                    <SymbolIcon Height="30"
+                                    <FontIcon Height="30"
                                                 HorizontalAlignment="Center"
                                                 Foreground="Gray"
-                                                Symbol="{Binding Symbol}" />
+                                                Glyph="&#xE701;" />
                                     <TextBlock FontSize="10"
                                                Foreground="Gray"
                                                Text="{Binding Label}"
