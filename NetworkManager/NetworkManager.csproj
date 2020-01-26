@@ -158,7 +158,6 @@
     <Compile Include="Extensions\AuthenticationTypeExtensions.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Constants\SpeedTestConsts.cs" />
-    <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
     <Compile Include="Helpers\ResourceExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
