@@ -25,6 +25,7 @@ namespace NetworkManager
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
             Container.RegisterType<IDeviceService, DeviceService>();
             Container.RegisterType<INetworkService, NetworkService>();
+            Container.RegisterType<ISpeedTestService, SpeedTestService>();
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args) => await LaunchApplicationAsync(PageTokens.MainPage, null);

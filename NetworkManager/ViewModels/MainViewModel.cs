@@ -89,7 +89,7 @@ namespace NetworkManager.ViewModels
         public DelegateCommand<object> DisconnnectCommand { get; private set; }
         public DelegateCommand<object> RefreshCommand { get; private set; }
 
-        public MainViewModel(INetworkService networkService, IDeviceService deviceService)
+        public MainViewModel(INetworkService networkService, IDeviceService deviceService, ISpeedTestService speedTestService)
         {
             _networkService = networkService;
             _deviceService = deviceService;

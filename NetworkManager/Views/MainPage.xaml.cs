@@ -1,4 +1,6 @@
-﻿using NetworkManager.ViewModels;
+﻿using System;
+
+using NetworkManager.ViewModels;
 
 using Windows.UI.Xaml.Controls;
 
