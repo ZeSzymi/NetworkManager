@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using NetworkManager.Core.Constants;
 using Microsoft.Practices.ObjectBuilder2;
 using System.Collections.Generic;
+using Windows.Security.Credentials;
+using System;
 
 namespace NetworkManager.ViewModels
 {
@@ -32,10 +34,12 @@ namespace NetworkManager.ViewModels
             {
                 var adapter = await _deviceService.GetWiFiAdapter();
                 var report = await _networkService.Scan(adapter);
-                await _networkService.Connect(report.AvailableNetworks.First(), adapter);
+                var av = report.AvailableNetworks.First(a => a.Ssid == "Redmi");
+                var result = _networkService.Connect(av, adapter, new PasswordCredential { Password = "abcd1234" }).Result;
                 var results = _speedTestService.GetTimeResultTasks(SpeedTestConsts.Addresses);
                 await Task.WhenAll(results);
                 return _speedTestService.GetAverageTimeSpan(results.Select(r => r.Result.Item2).ToList()).ToString();
+
             }
             return string.Empty;
         }

@@ -6,7 +6,7 @@
   IgnorableNamespaces="uap mp">
 
   <Identity Name="106ede8f-4e86-4765-83c7-109d9122bdef"
-            Publisher="CN=szymi"
+            Publisher="CN=Szymi"
             Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="106ede8f-4e86-4765-83c7-109d9122bdef" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

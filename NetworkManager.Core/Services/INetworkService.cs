@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Windows.Devices.WiFi;
+using Windows.Security.Credentials;
 
 namespace NetworkManager.Core.Services
 {
@@ -10,5 +8,6 @@ namespace NetworkManager.Core.Services
     {
         Task<WiFiNetworkReport> Scan(WiFiAdapter adapter);
         Task<WiFiConnectionResult> Connect(WiFiAvailableNetwork availableNetwork, WiFiAdapter adapter);
+        Task<WiFiConnectionResult> Connect(WiFiAvailableNetwork availableNetwork, WiFiAdapter adapter, PasswordCredential creditentials);
     }
 }

@@ -22,5 +22,13 @@ namespace NetworkManager.Core.Tests
             var speedTestService = new SpeedTestService();
             Assert.AreEqual(4.0, speedTestService.GetAverageTimeSpan(_times));
         }
+
+
+        [TestMethod]
+        public void ShouldNotGetAverageTimeSpanEmptyList()
+        {
+            var speedTestService = new SpeedTestService();
+            Assert.IsNull(speedTestService.GetAverageTimeSpan(new List<TimeSpan>()));
+        }
     }
 }
