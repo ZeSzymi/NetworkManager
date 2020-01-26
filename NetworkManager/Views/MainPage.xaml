@@ -4,22 +4,124 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
-    prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
+    xmlns:converters="using:NetworkManager.Converters"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock FontSize="36" Grid.RowSpan="2" >WiFi Scanner</TextBlock>
-        <StackPanel Name="spButtons" Grid.Row="1" Orientation="Horizontal">
-            <Button Name="btnScan" Click="btnScan_Click" Grid.Row="1">Scan For
-      Networks</Button>
-        </StackPanel>
-        <TextBox Name="txbReport" TextWrapping="Wrap" AcceptsReturn="True"
-    Grid.Row="2"></TextBox>
-    </Grid>
+    <Page.Resources>
+        <converters:NetworkToOrbitItemConverter x:Key="NetworkToOrbitItemConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:VisibilityConverter x:Key="VisibilityConverter" />
+    </Page.Resources>
+
+    <SplitView IsPaneOpen="{Binding IsDetailsPanelOpened, Mode=TwoWay}"
+               DisplayMode="Overlay"
+               PanePlacement="Right"
+               Background="LightGray"
+               OpenPaneLength="296">
+        <SplitView.Pane>
+            <Grid Margin="20,20,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="128" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding Ssid, Mode=TwoWay}"
+                           FontSize="28"
+                           Grid.Row="0"
+                           TextTrimming="CharacterEllipsis"
+                           HorizontalAlignment="Left" />
+
+                <StackPanel x:Name="ConnectLayout" Grid.Row="2"
+                            Visibility="{Binding IsConnected, Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="36" />
+                            <RowDefinition Height="48" />
+                        </Grid.RowDefinitions>
+
+                        <PasswordBox Grid.Row="0" Width="200" Password="{Binding Password, Mode=TwoWay}"
+                                     PlaceholderText="Type password..."
+                                     Visibility="{Binding IsSecured, Mode=TwoWay, Converter={StaticResource VisibilityConverter}}" />
+                        <Button Grid.Row="1" Width="200" Content="Connect" HorizontalAlignment="Center"
+                                Command="{Binding ConnectCommand, Mode=TwoWay}" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel x:Name="DisconnectLayout" Grid.Row="2" Visibility="{Binding IsConnected, Mode=TwoWay}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="36" />
+                            <RowDefinition Height="48" />
+                        </Grid.RowDefinitions>
+
+                        <Button Grid.Row="1" Width="200" Content="Disconnect" HorizontalAlignment="Center"
+                                Command="{Binding DisconnnectCommand, Mode=TwoWay}" />
+                    </Grid>
+                </StackPanel>
+
+                <ProgressRing Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20"
+                              IsActive="{Binding IsProcessing, Mode=TwoWay}"
+                              Visibility="{Binding IsProcessing, Mode=TwoWay, Converter={StaticResource VisibilityConverter}}" />
+            </Grid>
+        </SplitView.Pane>
+
+        <Grid x:Name="ContentArea">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Text="Network Manager"
+                Style="{StaticResource PageTitleStyle}" />
+            <Grid
+                Grid.Row="1"
+                Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                <controls:OrbitView x:Name="Networks"
+                                    AnchorColor="Gray"
+                                    AnchorsEnabled="False"
+                                    IsItemClickEnabled="True"
+                                    MinItemSize="60"
+                                    MaxItemSize="60"
+                                    OrbitColor="Gray"
+                                    OrbitsEnabled="True"
+                                    HorizontalAlignment="Right"
+                                    ItemsSource="{Binding AvailableNetworks, Mode=TwoWay, Converter={StaticResource NetworkToOrbitItemConverter}, UpdateSourceTrigger=PropertyChanged }">
+                    <i:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="ItemClick">
+                            <core:InvokeCommandAction Command="{Binding SelectionCommand}" />
+                        </core:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <controls:OrbitView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Background="White">
+                                <StackPanel>
+                                    <FontIcon Height="30"
+                                              HorizontalAlignment="Center"
+                                              Foreground="Gray"
+                                              Glyph="&#xE701;" />
+                                    <TextBlock FontSize="10"
+                                               Foreground="Gray"
+                                               Text="{Binding Label}"
+                                               TextAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </controls:OrbitView.ItemTemplate>
+                    <controls:OrbitView.CenterContent>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE703;" FontSize="60" />
+                    </controls:OrbitView.CenterContent>
+                </controls:OrbitView>
+            </Grid>
+            <Button Grid.Row="1" Width="200" Content="Refresh" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                    Command="{Binding RefreshCommand, Mode=TwoWay}" />
+        </Grid>
+    </SplitView>
 </Page>

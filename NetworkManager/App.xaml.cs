@@ -1,15 +1,13 @@
-﻿using System;
-using System.Globalization;
-using System.Threading.Tasks;
-
-using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.Unity;
 using NetworkManager.Core.Services;
 using NetworkManager.Services;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity.Windows;
 using Prism.Windows.AppModel;
-
+using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;

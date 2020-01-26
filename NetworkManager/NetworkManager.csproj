@@ -152,6 +152,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\NetworkToOrbitItemConverter.cs" />
+    <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Extensions\AuthenticationTypeExtensions.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Constants\SpeedTestConsts.cs" />
     <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
